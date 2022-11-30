@@ -445,15 +445,14 @@ int main() {
         InsertPatient(patient1,Name,designation,department,email,rollno,phoneno,Ethicsrating,Address);
     }
     
-   Homepage:
+    Homepage:
 
     cout <<"Welcome to IIT HYDERABAD HOSPITAL HELPDESK PORTAL" << endl;
-    cout << "1.To know about doctors "<< endl;
-    cout << "2.To know about patients "<< endl;
-    cout << "3.To book an appointment "<< endl;
-    cout << "4.To give feedback "<< endl;
-    cout <<"Select any option:"<< endl ;
-
+    cout << "1.Directory of Doctors "<< endl;
+    cout << "2.Directory of Patients "<< endl;
+    cout << "3.Appointment Management System "<< endl;
+    cout << "4.Feedback Management Portal "<< endl;
+    cout <<"Please select any option:"<< endl ;
 
     int x;
     cin>> x;    
@@ -462,10 +461,10 @@ int main() {
     {
     case 1:
     cout << "1.Add a new Doctor" << endl;
-    cout << "2. Delete a Doctor " << endl;
-    cout << "3. View doctors list  " << endl;
-    cout << "4. BACK "<<endl;
-    cout << "Choose one option:" << endl;
+    cout << "2.Delete a Doctor " << endl;
+    cout << "3.To view doctors list  " << endl;
+    cout << "4.BACK "<<endl;
+    cout << "Choose any one option:" << endl;
 
     int a;
     cin>>a ;
@@ -484,7 +483,7 @@ int main() {
        string Slot3;
        string Slot4;
        string Slot5; 
-        cout << "Enter doctor name : " ;
+        cout << "Enter New doctor name : " ;
         getline(cin >> ws ,Name) ;
         cout << endl;
         
@@ -544,7 +543,7 @@ int main() {
        
        string Name;
         
-        cout << "Enter doctor name : " ;
+        cout << "Enter doctor name to delete: " ;
         getline(cin >> ws ,Name) ;
         cout << endl;
         
@@ -567,12 +566,19 @@ int main() {
         SearchByNameDoc(doctor1,Name) ;
         goto Homepage ;
         break;
+
+        cout << "Enter phone view Doctor:" << endl;
+        cin>>PhoneNumber ;
+        SearchByPhoneNoDoc(doctor1,PhoneNumber);
+        goto Homepage;
+        break;
     }
      
     break;
     
     case 2:
-    cout << "1.To view about a patient " << endl;
+    cout << "Enter pateint name to view details :" << endl;
+    // getline(cin>> ws,abc);
     break;
 
     case 3:
@@ -580,7 +586,9 @@ int main() {
     break;
      
     case 4:
-    cout << "gkldfgblvdlbd"<< endl;
+    cout << "Enter patient name :"<< endl;
+    cout << "Enter doctor name:" << endl;
+
     goto Homepage;
     break;
 
@@ -591,13 +599,6 @@ int main() {
     }    
     
   Appointment:
-    cout << "1.New patient" << endl;
-    cout<< "2.Existing pateint"<< endl; 
-    cout << "Choose one:" ;
-    
-    int r ;
-    cin >> r;
-   cin.ignore();
 
    string PatName;
    cout<<"Enter your name"<<endl;
@@ -606,7 +607,7 @@ int main() {
     patient* PAT = Ns(patient1, PatName);
    }
    else {
-    cout <<"enter your details " << endl;
+    cout <<"Enter your details " << endl;
     string email_id1;
     string PhoneNumber1;
     string Designation1;
@@ -615,19 +616,19 @@ int main() {
     string Ethics_rating1 = "";
     string Address1 = "";
     
-    cout << "Enter emial: " ;
+    cout << "Enter email: " ;
     cin >> email_id1;
 
-    cout <<"phone no :";
+    cout <<"Phone no :";
     cin >> PhoneNumber1;
 
-    cout <<"enter designation:" ;
+    cout <<"Designation:" ;
     cin >> Designation1;
 
     cout << "department :" ;
     cin >> Department1 ;
 
-    cout <<"roll no :" ;
+    cout <<"Roll number :" ;
     cin >> Roll_no1;
     
     InsertPatient(patient1,PatName,Designation1,Department1,email_id1,Roll_no1,PhoneNumber1,Ethics_rating1,Address1) ;
@@ -637,7 +638,7 @@ int main() {
 
   specialist:
     
-    cout <<"Enter the type of specalist :"<<endl ;
+    cout <<"Enter the type of specalist:"<<endl ;
     cout << "1.GENERAL MEDICINE"<<endl;
     cout << "2.NEUROLOGY"<< endl;
     cout << "3.ORTHOPEDICS"<< endl;
@@ -650,7 +651,7 @@ int main() {
     int a;
     cin>> a;
 
-   cout<<"all the available doctors:"<< endl;
+   cout<<"All the available specialists:"<< endl;
    
    switch (a){
     case 1: SearchByDeptDoc(doctor1,"GENERAL MEDICINE") ;  
@@ -707,7 +708,7 @@ int main() {
     }
 
    int b; 
-   cout << "Choose a time slot :" << endl;
+   cout << "Choose a time slot:" << endl;
    cin>>b;
    string slot = to_string(b);
    doctor* Doc = NSDoc(doctor1, selectdoc);
@@ -729,7 +730,6 @@ int main() {
             cout<<"Slot is fully booked"<<endl;
     
      }
-
     else {
             Doc->q2.push(PAT);
     }
@@ -769,19 +769,20 @@ int main() {
             Doc->q6.push(PAT);
          }
     break;
- 
+    
     default: "Choose out of given slots";
     goto SLOTS;
-    
     break;
+
    }
 
-  
-  
-  goto Homepage ;
+   cout<<"Your appointment is booked";
+   cout <<"APPOINTMENT DETAILS:" << endl;
+   cout <<"Patient Name :" << PatName << endl;
+   cout <<"Doctor Name :" << selectdoc << endl;
    
-
-  cout<<link(doctor1, Doc->Name, PAT->Name, slot);
+   goto Homepage ;
+   
 
  return 0;
 
