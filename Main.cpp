@@ -769,9 +769,10 @@ int main() {
             Doc->q6.push(PAT);
          }
     break;
-    case 7 :
-        default: "Choose out of given slots";
-        goto SLOTS;
+ 
+    default: "Choose out of given slots";
+    goto SLOTS;
+    
     break;
    }
 
