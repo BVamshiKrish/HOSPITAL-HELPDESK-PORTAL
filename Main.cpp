@@ -412,3 +412,376 @@ int main() {
       }
     }
 }
+
+    ifstream inputFile1;
+    inputFile1.open("BM2043_PATIENTS.csv");
+
+    string line1 = "";
+    getline(inputFile1,line) ;
+    line = "";
+
+    while ( getline(inputFile1,line))
+    {
+        string Name ;
+        string designation;
+        string department ;
+        string email;
+        string rollno;
+        string phoneno;
+        string Ethicsrating;
+        string Address ;
+        stringstream inputString(line);
+
+        getline(inputString,Name, ',') ;
+        getline(inputString,designation,',');
+        getline(inputString,department,',') ;
+        getline(inputString,email, ',');
+        getline(inputString,rollno, ',');
+        getline(inputString,phoneno,',');
+        getline(inputString,Ethicsrating,',');
+        getline(inputString,Address,',');
+
+        line = "";
+        InsertPatient(patient1,Name,designation,department,email,rollno,phoneno,Ethicsrating,Address);
+    }
+    
+   Homepage:
+
+    cout <<"Welcome to IIT HYDERABAD HOSPITAL HELPDESK PORTAL" << endl;
+    cout << "1.To know about doctors "<< endl;
+    cout << "2.To know about patients "<< endl;
+    cout << "3.To book an appointment "<< endl;
+    cout << "4.To give feedback "<< endl;
+    cout <<"Select any option:"<< endl ;
+
+
+    int x;
+    cin>> x;    
+
+    switch (x)
+    {
+    case 1:
+    cout << "1.Add a new Doctor" << endl;
+    cout << "2. Delete a Doctor " << endl;
+    cout << "3. View doctors list  " << endl;
+    cout << "4. BACK "<<endl;
+    cout << "Choose one option:" << endl;
+
+    int a;
+    cin>>a ;
+
+    if(a == 1){
+     
+       string Name;
+       string Department;
+       string TypeOfEmployment;
+       string PhoneNumber;
+       string Feedback;
+       string email_id;
+       string Patients;
+       string Slot1;
+       string Slot2;
+       string Slot3;
+       string Slot4;
+       string Slot5; 
+        cout << "Enter doctor name : " ;
+        getline(cin >> ws ,Name) ;
+        cout << endl;
+        
+        cout <<"Enter name of Department :" ;
+        cin >> Department;
+        cout << endl;
+
+        cout <<"Enter type of employment :" ;
+        cin >> TypeOfEmployment;
+        cout << endl;
+
+        cout <<"Enter Phone number :" ;
+        cin >> PhoneNumber;
+        cout << endl;
+
+        cout <<" Enter feedback :" ;
+        cin >> Feedback;
+        cout << endl;  
+
+        cout << "Enter email ID :" ;
+        cin>> email_id ;
+        cout << endl;
+
+        cout <<" Enter number of patients:" ;
+        cin >> Patients ;
+        cout << endl;
+
+        cout<<" Enter time slot keys"<<endl;
+        cout<<"enter 1 for 9AM-10AM"<<endl;
+        cout<<"enter 2 for 10AM-11AM"<<endl;
+        cout<<"enter 3 for 11AM-12PM"<<endl;
+        cout<<"enter 4 for 2PM-3PM"<<endl;
+        cout<<"enter 5 for 3PM-4PM"<<endl;
+        cout<<"enter 6 for 4PM-5PM"<<endl;
+
+        cout << " Enter Slot 1:"<<endl;
+        cin >> Slot1;
+
+        cout << " Enter Slot 2:"<<endl;
+        cin >> Slot2;
+
+        cout << " Enter Slot 3:"<<endl;
+        cin >> Slot3;
+
+        cout << " Enter Slot 4:"<<endl;
+        cin >> Slot4;
+
+        cout << " Enter Slot 5:"<<endl;
+        cin >> Slot5;
+
+    InsertDoctor(doctor1,Name,email_id,PhoneNumber,TypeOfEmployment,Department,Feedback,Patients,Slot1,Slot2,Slot3,Slot4,Slot5);
+    goto Homepage;
+    break; 
+    } 
+
+    else if (a == 2){
+       
+       string Name;
+        
+        cout << "Enter doctor name : " ;
+        getline(cin >> ws ,Name) ;
+        cout << endl;
+        
+        DeleteDoc(doctor1,Name);
+        break;
+    }
+
+    else if(a==3){
+
+       string Name;
+       string Department;
+       string TypeOfEmployment;
+       string PhoneNumber;
+       string Feedback;
+       string email_id;
+       string Patients;
+
+        cout <<" Enter the name of the doctor to view the list:" << endl;
+        getline(cin >> ws,Name);
+        SearchByNameDoc(doctor1,Name) ;
+        goto Homepage ;
+        break;
+    }
+     
+    break;
+    
+    case 2:
+    cout << "1.To view about a patient " << endl;
+    break;
+
+    case 3:
+    goto Appointment ;
+    break;
+     
+    case 4:
+    cout << "gkldfgblvdlbd"<< endl;
+    goto Homepage;
+    break;
+
+    default:
+    goto Homepage;
+    break;
+
+    }    
+    
+  Appointment:
+    cout << "1.New patient" << endl;
+    cout<< "2.Existing pateint"<< endl; 
+    cout << "Choose one:" ;
+    
+    int r ;
+    cin >> r;
+   cin.ignore();
+
+   string PatName;
+   cout<<"Enter your name"<<endl;
+   cin>>PatName;
+   if(Namesearch(patient1, PatName)) {
+    patient* PAT = Ns(patient1, PatName);
+   }
+   else {
+    cout <<"enter your details " << endl;
+    string email_id1;
+    string PhoneNumber1;
+    string Designation1;
+    string Department1;
+    string Roll_no1;
+    string Ethics_rating1 = "";
+    string Address1 = "";
+    
+    cout << "Enter emial: " ;
+    cin >> email_id1;
+
+    cout <<"phone no :";
+    cin >> PhoneNumber1;
+
+    cout <<"enter designation:" ;
+    cin >> Designation1;
+
+    cout << "department :" ;
+    cin >> Department1 ;
+
+    cout <<"roll no :" ;
+    cin >> Roll_no1;
+    
+    InsertPatient(patient1,PatName,Designation1,Department1,email_id1,Roll_no1,PhoneNumber1,Ethics_rating1,Address1) ;
+    patient* PAT = Ns(patient1, PatName);
+    goto  specialist;
+   }
+
+  specialist:
+    
+    cout <<"Enter the type of specalist :"<<endl ;
+    cout << "1.GENERAL MEDICINE"<<endl;
+    cout << "2.NEUROLOGY"<< endl;
+    cout << "3.ORTHOPEDICS"<< endl;
+    cout << "4.CARDIOLOGY"<< endl;
+    cout << "5.GYNECOLOGY"<< endl;
+    cout << "6.PULMONOLOGY"<< endl;
+    cout << "7.PEDIATRICS"<< endl;
+
+
+    int a;
+    cin>> a;
+
+   cout<<"all the available doctors:"<< endl;
+   
+   switch (a){
+    case 1: SearchByDeptDoc(doctor1,"GENERAL MEDICINE") ;  
+    break;
+    
+    case 2: SearchByDeptDoc(doctor1,"NEUROLOGY") ;  
+    break;
+        
+    case 3: SearchByDeptDoc(doctor1,"ORTHOPEDICS") ;  
+    break;
+       
+    case 4: SearchByDeptDoc(doctor1,"CARDIOLOGY") ;  
+    break;
+        
+    case 5: SearchByDeptDoc(doctor1,"GYNECOLOGY") ;  
+    break;
+        
+    case 6: SearchByDeptDoc(doctor1,"PULMONOLOGY") ;  
+    break;
+        
+    case 7: SearchByDeptDoc(doctor1,"PEDIATRICS") ;  
+    break;
+   
+   default: 
+    cout <<"Select a number in range"<< endl;
+    goto specialist; 
+    break;
+   }
+
+   SLOTS:
+
+   string selectdoc;
+   cout <<"Enter doctor name:"<<endl ;
+   getline(cin >> ws,selectdoc);
+
+    if(NameSearchDoc(doctor1,selectdoc)){
+        doctor* Doc = NSDoc(doctor1, selectdoc);
+    
+    cout << "Available time slots for : "<< selectdoc << endl ;
+    if((Doc->Slot1=="1" or Doc->Slot2=="1" or Doc->Slot3=="1" or Doc->Slot4=="1" or Doc->Slot5=="1") and Doc->q1.size()<5)   cout<<"1. 9AM-10AM"<<endl;
+    if((Doc->Slot1=="2" or Doc->Slot2=="2" or Doc->Slot3=="2" or Doc->Slot4=="2" or Doc->Slot5=="2") and Doc->q2.size()<5)   cout<<"2. 10AM-11AM"<<endl;
+    if((Doc->Slot1=="3" or Doc->Slot2=="3" or Doc->Slot3=="3" or Doc->Slot4=="3" or Doc->Slot5=="3") and Doc->q3.size()<5)   cout<<"3. 11AM-12AM"<<endl;
+    if((Doc->Slot1=="4" or Doc->Slot2=="4" or Doc->Slot3=="4" or Doc->Slot4=="4" or Doc->Slot5=="4") and Doc->q4.size()<5)   cout<<"4. 2PM-3PM"<<endl;
+    if((Doc->Slot1=="5" or Doc->Slot2=="5" or Doc->Slot3=="5" or Doc->Slot4=="5" or Doc->Slot5=="5") and Doc->q5.size()<5)   cout<<"5. 3PM-4PM"<<endl;
+    if((Doc->Slot1=="6" or Doc->Slot2=="6" or Doc->Slot3=="6" or Doc->Slot4=="6" or Doc->Slot5=="6") and Doc->q6.size()<5)   cout<<"6. 4PM-5PM"<<endl;
+    
+    cout<<"7. BACK"<<endl;
+
+    }
+
+    else {
+    cout <<"Enter correct name:"<<endl;
+    goto SLOTS;
+    }
+
+   int b; 
+   cout << "Choose a time slot :" << endl;
+   cin>>b;
+   string slot = to_string(b);
+   doctor* Doc = NSDoc(doctor1, selectdoc);
+   patient* PAT = Ns(patient1, PatName);
+   switch (b) {
+
+   case 1 :
+    if(Doc->q1.size()==5) {
+            cout<<"Slot is fully booked"<<endl;
+      }
+    else {
+            Doc->q1.push(PAT);
+    }
+     cout << "your appointment is booked" << endl;
+    break;
+
+   case 2 :
+    if(Doc->q2.size()==5) {
+            cout<<"Slot is fully booked"<<endl;
+    
+     }
+
+    else {
+            Doc->q2.push(PAT);
+    }
+     cout << "your appointment is booked" << endl;
+    
+    break;
+    case 3 :
+          if(Doc->q3.size()==5) {
+            cout<<"Slot is fully booked"<<endl;
+         }
+         else {
+            Doc->q3.push(PAT);
+         }
+         goto SLOTS;
+    break;
+    case 4 :
+          if(Doc->q4.size()==5) {
+            cout<<"Slot is fully booked"<<endl;
+         }
+         else {
+            Doc->q4.push(PAT);
+         }
+    break;
+    case 5 :
+          if(Doc->q5.size()==5) {
+            cout<<"Slot is fully booked"<<endl;
+         }
+         else {
+            Doc->q5.push(PAT);
+         }
+    break;
+    case 6 :
+          if(Doc->q6.size()==5) {
+            cout<<"Slot is fully booked"<<endl;
+         }
+         else {
+            Doc->q6.push(PAT);
+         }
+    break;
+    case 7 :
+        default: "Choose out of given slots";
+        goto SLOTS;
+    break;
+   }
+
+  
+  
+  goto Homepage ;
+   
+
+  cout<<link(doctor1, Doc->Name, PAT->Name, slot);
+
+ return 0;
+
+}
